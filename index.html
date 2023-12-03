@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="description" content=""/>
+        <title> </title>
+        <link rel="stylesheet" href="styles/style.css" type="text/css"/>
+        <script src = "scripts/script.js"></script>
+        <style>
+            body{
+                display:flex;
+                flex-direction:column;
+                width:100%;
+                height:100vh;
+                justify-content:center;
+                align-items:center;
+                background-color:aqua;
+                }
+                section{
+                    display:flex;
+                    width:70%;
+                    justify-content:center;
+                    flex-direction:column;
+                    background-color:white;
+                    box-shadow:2px 2px 5px grey,
+                                            -2px -2px 5px grey,
+                                           5px 5px 7px grey,
+                                           -5px -5px 7px grey;
+                    border-radius:5px;
+                    padding:15px;
+                    gap:10px;
+                    overflow-x:hidden;
+                }
+                input::placeholder{
+                  font-weight:500;  
+                }
+                input{
+                    border-radius:5px;
+                    height:25px;
+                    font-weight:600;
+                    border:1px solid black;
+                    font-size:17px;
+                }
+                .one{
+                    text-align:center;
+                    font-weight:700;
+                    font-size:25px;
+                }
+                .two, .three{
+                    font-weight:550;
+                    font-size:16px;
+                }
+                button{
+                    background-color:blue;
+                    height:30px;
+                    border-radius:5px;
+                    outline:none;
+                    border:none;
+                    color:white;
+                    font-weight:600;
+                    inset:2px red;
+                }
+                .num{
+                    border:1px solid blue;
+                    padding:10px;
+                    display:none;
+                    font-weight:550;
+                    font-size:17px;
+                    border-radius:5px;
+                }
+                select{
+                    height:30px;
+                    border:1px solid black;
+                    border-radius:5px;
+                }
+                .msg{
+                    display:none;
+                    color:red;
+                }
+                .inp{
+                    gap:6px;
+                    width:100%;
+                    display:flex;
+                }
+             #phone{
+                    width:inherit;
+                }
+                
+        </style>
+    </head>
+    <body>
+        <section>
+        <label class="one">OTP VERIFICATION</label>
+            <label class="two">Enter Phone number:</label>
+                <div class = "inp" style = "display:flex;">
+                    <select name="items" required = "true">
+  <option value="+234">+234</option>
+  <option value="+233">+233</option>
+  <option value="+44">+44</option>
+  </select>
+                <input type = "tel" id = "phone" required  = "true" placeholder = "Enter mobile number">
+            </div>
+                <button id = "get" >Request OTP</button>
+                 <label class="three">Enter OTP:</label>
+                     <input type = "tel" required = "true" id = "otp" placeholder = "Enter OTP">
+                      <button id = "verify" onclick = "verify()">Verify OTP</button>
+                      <button id = "resend" onclick = "resend()">Resend OTP</button>
+                      <button id = "clear" onclick = "clr()">Clear form</button>
+                            <label for="id" class="msg">OTP sent to 04404</label>
+                        <label for="id" class="num">Your OTP: <b></b></label>
+                          </section>
+        <script>
+            let phone = document.getElementById("phone");
+            let otp = document.getElementById("otp");
+            let otpMsg= document.querySelector("b");
+            let num = document.querySelector(".num");
+            let detail = document.querySelector(".msg");
+            let select = document.querySelector("select");
+            document.getElementById("get").onclick = ()=>{
+            if(phone.value === null && select.value !== null){
+                 return false;
+                 }
+             else{
+                    let rand = Math.floor(Math.random()*999999);
+                    setTimeout(()=>{
+                   num.style.display = "block";
+                   },1700);
+                detail.style.display="block";
+            otpMsg.innerHTML = `${rand}`;
+               detail.innerHTML = `OTP will be sent in some minute ${select.value} ${phone.value}`;
+               return true;
+               }
+            }
+           
+            function verify(){ 
+            if(phone.value === null){
+                return false;
+            }
+          else  if(otp.value != otpMsg.innerText){
+                alert("not equal");
+                return false;
+            }
+            else{
+                alert("equal");
+                return true;
+            }
+            }
+            function resend(){
+                   let rand = Math.floor(Math.random()*999999);
+            otpMsg.innerHTML = `${rand}`;
+               detail.innerHTML = `OTP sent to ${phone.value}`;
+            }
+            function clr(){
+                location.reload();
+            }
+        </script>
+    </body>
+ </html>
